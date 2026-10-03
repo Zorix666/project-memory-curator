@@ -23,11 +23,10 @@ description: Maintain a controlled, auditable, editable project-level memory usi
 
 1. 确定项目根目录。优先使用版本控制根目录；否则使用最接近当前工作区、能够完整包含本次目标文件的目录。不要把用户主目录误当项目根目录。
 2. 检查根目录下的 `.agent-knowledge/`，并查找上述既有入口文件及其他明确的知识库规范。
-3. 先读适用的入口规范，再按当前任务只读最相关的记忆文件：
+3. 先读适用的入口规范，再按当前任务只读最相关的记忆文件（按需单文件读取，严禁一次性全量加载所有记忆）：
    - 项目结构或架构：`project.md`、`decisions.md`
    - 用户偏好或禁止事项：`preferences.md`
    - 命令、环境、构建、测试或部署：`runbook.md`
-   - 排障、修复、优化或恢复：`experiences.md`
    - 未决候选：`todo-memory.md`，仅作为待核实线索
 4. 用标题、标签、适用范围和关键词筛选；不要为了"完整"而加载无关文件。
 5. 若找到高度相关且未冲突的记忆，执行前简短告知用户：使用了哪条记忆、相对路径及其对当前任务的影响。没有相关记忆时无需额外提示。
@@ -40,11 +39,12 @@ description: Maintain a controlled, auditable, editable project-level memory usi
 - 技术栈、版本、运行环境、构建方式和稳定目录边界；
 - 常用测试、启动、部署和恢复命令；
 - 用户明确表达的长期偏好、操作禁忌和协作习惯；
-- 已确认的模块职责、架构边界、重要约定和决策影响；
-- 已验证的 Bug 根因、修复方案、验证方式和预防措施；
-- 可复用的 CI/CD、依赖、部署、性能或稳定性经验。
+- 已确认的模块职责、架构边界、重要约定和决策影响。
 
-跳过简单文案或格式修改、一次性操作、无法确认根因的问题、低价值细节、原始长日志、临时情绪、闲聊和未经用户确认的个人偏好。
+### 边界红线（记忆与经验严格解耦）
+- **禁止在本项目记忆中记录工程排障、Bug 修复、故障恢复、踩坑复盘等经验性结论**；
+- 所有工程报错、排障与修复经验必须交由 `intelligent-experience-extractor` 独立经验库承载，杜绝记忆库与经验库混杂。
+- 跳过简单文案或格式修改、一次性操作、无法确认根因的问题、低价值细节、原始长日志、临时情绪、闲聊和未经用户确认的个人偏好。
 
 ## 选择目标文件
 
@@ -54,7 +54,6 @@ description: Maintain a controlled, auditable, editable project-level memory usi
 - `preferences.md`：用户明确确认的长期偏好、禁忌、代码风格和协作方式。
 - `runbook.md`：已验证的常用命令、启动、测试、构建、部署及环境要求。
 - `decisions.md`：有背景、选择、理由和影响的架构或工程决策。
-- `experiences.md`：已验证的排障、修复、部署、恢复和优化经验。
 - `todo-memory.md`：有价值但仍需确认或补全的候选；不得作为事实引用。
 
 添加或更新条目前，读取 [references/memory-entry-format.md](references/memory-entry-format.md)。创建全新知识库时，以 [assets/agent-knowledge/README.md](assets/agent-knowledge/README.md) 及同目录模板为基础，但仍须遵循预览确认流程。不要强制迁移既有文档；必要时只建议在入口文件中引用 `.agent-knowledge/README.md`，未经确认不得修改入口文件。

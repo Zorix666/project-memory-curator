@@ -23,11 +23,13 @@ AI coding agents forget everything between sessions. Existing solutions store me
 | `preferences.md` | Confirmed long-term preferences, constraints, collaboration habits | Inferred preferences |
 | `runbook.md` | Verified commands: start, test, build, deploy, recover | Untested commands, credentials |
 | `decisions.md` | Architecture decisions with context, rationale, and impact | Unsupported assumptions |
-| `experiences.md` | Verified debugging, fix, deployment, and optimization lessons | Raw logs, unknown root causes |
 | `todo-memory.md` | Candidates that need further verification — **never treated as fact** | Actionable facts |
+
+> **Clear Separation**: Engineering troubleshooting, debugging, and bugfix lessons belong in `intelligent-experience-extractor`, **never** in project memory.
 
 ## Hard Rules
 
+- **No engineering troubleshooting lessons.** Bugs, fix root causes, and outage notes belong in the companion experience extractor. Keep memory clean.
 - **No secrets.** Never stores keys, tokens, passwords, credentials, private URLs, emails, or customer data.
 - **No guesses.** Unconfirmed observations go to `todo-memory.md` with `置信度：待确认` (confidence: unconfirmed); they are never applied as facts.
 - **No chat logs.** Only conclusions with clear future reuse value are kept — raw conversations and full logs are skipped.
@@ -50,7 +52,6 @@ project-memory-curator/
 │       ├── preferences.md            # User preferences template
 │       ├── runbook.md                # Commands & operations template
 │       ├── decisions.md              # Architecture decisions template
-│       ├── experiences.md            # Engineering experiences template
 │       └── todo-memory.md            # Unconfirmed candidates template
 ├── README.md
 ├── LICENSE
